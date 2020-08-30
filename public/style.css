@@ -36,3 +36,9 @@ ul.messages.list-group {
   font-size: 1.5em;
   color: #1c3ae6;
 }
+.right
+{
+  position: absolute;
+  top: 0;
+  right: 0;
+}

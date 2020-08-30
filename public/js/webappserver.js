@@ -11,8 +11,30 @@ var socket = io();
      name: name,
      room: room
    });
- });
+ }); 
+ ////////////
+ var mymap;
 
+
+ ////////////
+function mapfetch()
+{
+  if ('geolocation' in navigator) {
+   // console.log('geolocation available');
+    navigator.geolocation.getCurrentPosition(position => {
+      lat = position.coords.latitude;
+      lon = position.coords.longitude;
+    });
+    data = {lat:lat,lon:lon,name:name};
+    socket.emit('map',data);
+   // console.log(data);
+  }
+} 
+socket.on("map",function(data){
+  //alert("Hi");
+  L.marker([data.lat, data.lon]).addTo(mymap); 
+  console.log(data.name); 
+});
  var timeout;
 
  function timeoutFunction() {

@@ -5,12 +5,7 @@ var http = require("http").Server(app);
 
 
 var moment = require("moment");
-var music = {
-             'flute' : 'sound/flute_classic.mp3',
-             'piano' : 'sound/piano.mp3',          
-             'guitar' : 'sound/guitar.mp3',
-             'edm' : 'sound/edm.mp3'
-            };
+
 
 var clientInfo = {};
 
@@ -80,7 +75,12 @@ io.on("connection", function(socket) {
   socket.on('typing', function(message) { 
     socket.broadcast.to(clientInfo[socket.id].room).emit("typing", message);
   });
-
+  ///////////
+  socket.on('map', function(data) { 
+    io.in(clientInfo[socket.id].room).emit("map", data);
+  });
+  
+  ///////////
   socket.on("userSeen", function(msg) {
     socket.broadcast.to(clientInfo[socket.id].room).emit("userSeen", msg);
   
